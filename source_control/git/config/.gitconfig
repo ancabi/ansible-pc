@@ -1,0 +1,7 @@
+[user]
+	email = ancabi@gmail.com
+	name = Andres Billordo
+[pull]
+	rebase = false
+[core]
+	editor = code

@@ -1,0 +1,33 @@
+---
+- name: Install personal config files
+  hosts: localhost
+  connection: local
+  become: yes
+  become_user: "{{ host_username }}"
+  vars_files:
+  - ../data.txt
+  tasks:
+  - name: Install bash config
+    copy:
+        src: ../../environment/linux/config/.bashrc
+        dest: /home/{{ host_username }}
+  - name: Install bash aliases config
+    copy:
+        src: ../../environment/linux/config/.bash_aliases
+        dest: /home/{{ host_username }}
+  - name: Install vim config
+    copy:
+        src: ../../environment/linux/config/.vimrc
+        dest: /home/{{ host_username }}
+  - name: Install vim colors
+    copy:
+        src: ../../environment/linux/config/.vim/colors/
+        dest: /home/{{ host_username }}/.vim/colors/  # Ending slash, create dir
+  - name: Install atom config files
+    copy:
+        src: ../../editors/atom/config/
+        dest: /home/{{ host_username }}/.atom/
+  - name: Install git config
+    copy:
+        src: ../../source_control/git/config/.gitconfig
+        dest: /home/{{ host_username }}

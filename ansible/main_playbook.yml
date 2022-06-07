@@ -1,0 +1,18 @@
+---
+- import_playbook: playbooks/generate_datafile.yml
+- import_playbook: playbooks/users.yml
+- import_playbook: playbooks/linux_packages.yml
+
+- name:
+  hosts: localhost
+  connection: local
+  tasks:
+  - debug:
+      msg: "You will need to create and use a Github access token for the next
+      step. It must have the scope 'admin:public_key'. Documentation for this is here:
+      https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line"
+
+- import_playbook: playbooks/ssh_keys.yml
+# - import_playbook: playbooks/configs.yml
+# - import_playbook: playbooks/services.yml
+- import_playbook: playbooks/scripts.yml

@@ -1,0 +1,31 @@
+---
+- name:
+  hosts: localhost
+  connection: local
+  vars:
+      data_file: ../data.txt
+  vars_prompt:
+    - name: h_user
+      prompt: "Enter your Linux username"
+      private: no
+    - name: h_email
+      prompt: "Enter your email"
+      private: no
+    - name: g_user
+      prompt: "Enter your Github username"
+      private: no
+    - name: s_key
+      prompt: "Enter the name of the ssh key"
+      private: no
+  tasks:
+  - name: Remove datafile if present
+    file:
+        path: "{{ data_file }}"
+        state: absent
+  - name: Create datafile
+    copy:
+        dest: "{{ data_file }}"
+        content: "host_username: {{ h_user }}
+                  \nhost_email: {{ h_email }}
+                  \ngithub_username: {{ g_user }}
+                  \ngithub_ssh_key_name: {{ s_key }}\n"

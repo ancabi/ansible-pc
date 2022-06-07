@@ -1,0 +1,35 @@
+---
+- name: Generate SSH keys
+  hosts: localhost
+  connection: local
+  become: yes
+  become_user: "{{ host_username }}"
+  vars_files:
+  - ../data.txt
+  vars_prompt:
+      - name: github_token
+        prompt: Enter your Github access token
+        private: yes
+  tasks:
+  - name: Create .ssh directory
+    file:
+        path: /home/{{ host_username }}/.ssh/
+        state: directory
+  - name: Generate RSA keys
+    shell: "ssh-keygen -t ed25519 -a 100 -N '' -C {{ host_email }} -f /home/{{ host_username }}/.ssh/id_ed25519"
+    args:
+      creates: "/home/{{ host_username }}/.ssh/id_ed25519"
+
+  # Use personal access token rather than username/password.
+  - name: Upload SSH keys to Github
+    uri:
+        url: https://api.github.com/user/keys
+        user: "{{ github_username }}"
+        password: "{{ github_token }}"
+        method: POST
+        body_format: json
+        force_basic_auth: yes
+        status_code: 201
+        body:
+            title: "{{ github_ssh_key_name }}"
+            key: "{{ lookup('file', '/home/{{ host_username }}/.ssh/id_ed25519.pub') }}"

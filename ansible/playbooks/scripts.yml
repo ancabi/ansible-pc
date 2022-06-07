@@ -1,0 +1,20 @@
+---
+- name: Install yay
+  hosts: localhost
+  connection: local
+  become: yes
+  become_user: "{{ host_username }}"
+  vars_files:
+  - ../data.txt
+  tasks:
+  - name: Enter to the folder
+    shell: cd /opt
+  - name: Download YaY
+    shell: git clone https://aur.archlinux.org/yay-git.git
+  - name: Change user owner
+    shell: chown -R {{ host_username }}:{{ host_username }} ./yay-git
+  - name: Enter to the folder
+    shell: cd yay-git
+  - name: Compile YaY
+    shell: makepkg -si
+  

@@ -1,0 +1,17 @@
+---
+pacman_packages:
+- code
+- clang
+- cmake
+- curl
+- docker
+- ffmpeg
+- gcc
+- gdb
+- gimp
+- git
+- make
+- nodejs
+- os-prober
+- redshift
+- tree

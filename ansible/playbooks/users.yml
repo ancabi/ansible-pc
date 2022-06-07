@@ -1,0 +1,29 @@
+---
+- name: Update user settings
+  hosts: localhost
+  connection: local
+  become: yes
+  vars_files:
+  - ../data.txt
+  tasks:
+  - name: Create ~/.ansible/tmp directory
+    file:
+        path: "/home/{{ host_username }}/.ansible/tmp/"
+        state: directory
+        owner: "{{ host_username }}"
+  - name: Ensure wheel group exists
+    group:
+        name: wheel
+        state: present
+  - name: Provide sudo access to the wheel group
+    lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: "^# %wheel ALL=(ALL) ALL"
+        line: "%wheel ALL=(ALL) ALL"
+        validate: visudo -cf %s
+  - name: Add current user to wheel group
+    user:
+        name: "{{ host_username }}"
+        groups: wheel
+        append: yes
