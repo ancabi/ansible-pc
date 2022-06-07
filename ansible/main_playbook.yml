@@ -16,3 +16,4 @@
 # - import_playbook: playbooks/configs.yml
 # - import_playbook: playbooks/services.yml
 - import_playbook: playbooks/scripts.yml
+- import_playbook: playbooks/aur_packages.yml
