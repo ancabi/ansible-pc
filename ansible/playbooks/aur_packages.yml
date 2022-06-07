@@ -1,0 +1,13 @@
+---
+- name:
+  hosts: localhost
+  connection: local
+  become: yes
+  vars_files:
+  - ../lists/aur_package_list.yml
+  - ../data.txt
+  tasks:
+  - name: Install pacman packages
+    yay:
+        name: "{{ aur_packages }}"
+        state: latest
