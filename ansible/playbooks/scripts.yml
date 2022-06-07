@@ -1,4 +1,22 @@
 ---
+- name: Download yay
+  hosts: localhost
+  connection: local
+  become: yes
+  vars_files:
+  - ../data.txt
+  tasks:
+  - name: Download YaY
+    shell: git clone https://aur.archlinux.org/yay-git.git /opt/yay-git  
+- name: Change owner yay folder
+  hosts: localhost
+  connection: local
+  become: yes
+  vars_files:
+  - ../data.txt
+  tasks:  
+  - name: Change user owner
+    shell: chown -R {{ host_username }}:{{ host_username }} /opt/yay-git
 - name: Install yay
   hosts: localhost
   connection: local
@@ -7,14 +25,6 @@
   vars_files:
   - ../data.txt
   tasks:
-  - name: Enter to the folder
-    shell: cd /opt
-  - name: Download YaY
-    shell: git clone https://aur.archlinux.org/yay-git.git
-  - name: Change user owner
-    shell: chown -R {{ host_username }}:{{ host_username }} ./yay-git
-  - name: Enter to the folder
-    shell: cd yay-git
   - name: Compile YaY
-    shell: makepkg -si
+    shell: cd /opt/yay-git && makepkg -si --noconfirm 
   

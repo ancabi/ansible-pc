@@ -22,7 +22,7 @@
   - name: Install vim colors
     copy:
         src: ../../environment/linux/config/.vim/colors/
-        dest: /home/{{ host_username }}/.vim/colors/  # Ending slash, create dir
+        dest: /home/{{ host_username }}/.vim/colors/
   - name: Install atom config files
     copy:
         src: ../../editors/atom/config/

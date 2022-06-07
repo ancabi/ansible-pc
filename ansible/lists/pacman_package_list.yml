@@ -15,3 +15,4 @@ pacman_packages:
 - os-prober
 - redshift
 - tree
+- go
