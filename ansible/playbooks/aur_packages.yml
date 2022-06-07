@@ -7,7 +7,7 @@
   - ../lists/aur_package_list.yml
   - ../data.txt
   tasks:
-  - name: Install pacman packages
+  - name: Install AUR packages
     yay:
         name: "{{ aur_packages }}"
         state: latest

@@ -11,8 +11,12 @@ pacman_packages:
 - gimp
 - git
 - make
-- nodejs
+- nodejs-lts-gallium
 - os-prober
 - redshift
 - tree
 - go
+- gnome-keyring
+- patch
+- automake
+- pkg-config

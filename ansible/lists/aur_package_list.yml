@@ -1,5 +1,7 @@
 ---
 aur_packages:
+- gconf
 - github-desktop
 - microsoft-edge-stable-bin
 - spotify
+- dbeaver
